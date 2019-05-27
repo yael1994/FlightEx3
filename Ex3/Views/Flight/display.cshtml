@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "display";
+}
+<img id="map" src="~/Image/export-map-share.png" style="height:100%;width:100%;border-width:0px;" />
+<canvas id="myCanvas" width="900" height="900" />
+<link href="~/Content/styles.css" rel="stylesheet" type="text/css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<body>
+    <script>
+
+        var width = 180;
+        var height = 90;
+        document.getElementById("myCanvas").style.height = "100vh";
+        document.getElementById("myCanvas").style.width = "100vw";
+
+        var img = document.getElementById("map");
+        var cnvs = document.getElementById("myCanvas");
+
+        cnvs.style.position = "absolute";
+        cnvs.style.left = img.offsetLeft + "px";
+        cnvs.style.top = img.offsetTop + "px";
+        var ctx = cnvs.getContext("2d");
+        ctx.beginPath();
+        ctx.arc( '@ViewBag.Lat' ,'@ViewBag.Lon', 4, 0, 2 * Math.PI);
+        ctx.strokeStyle = "blue";
+        ctx.fillStyle = 'red';
+        ctx.fill();
+        ctx.stroke();
+    </script>
+    <script>
+        var IntervalTime = @Session["time"] * 1000
+
+        myTimer = (function () {
+            $.post("@Url.Action("GetFlightData")").done(function (x) {
+                ctx.strokeStyle = "red";
+                ctx.moveTo(x, x);
+                ctx.lineTo( @Session["Lat"] , @Session["Lon"]);
+                ctx.stroke();
+            });
+        });
+
+        setInterval(myTimer, IntervalTime);
+        myTimer();
+
+    </script>
+</body>
