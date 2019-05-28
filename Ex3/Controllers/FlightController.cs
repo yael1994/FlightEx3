@@ -33,8 +33,11 @@ namespace Ex3.Controllers
         [HttpPost]
         public int GetFlightData()
         {
-            Session["Lat"] = FlightModel.Instance.Lat;
-            Session["Lon"] = FlightModel.Instance.Lon;
+           
+            FlightModel.Instance.Lat = 100;
+            FlightModel.Instance.Lon = 200;
+            //Session["Lat"] = 349;
+            //Session["Lon"] = 543;
 
             return 0;
 
