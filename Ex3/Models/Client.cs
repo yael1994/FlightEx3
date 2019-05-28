@@ -73,7 +73,7 @@ namespace Ex3.Models
                 }
                 string test = Client.getInstance().Read();
                 string[] t = test.Split('\'');
-                FlightModel.Instance.Lon = Convert.ToDouble(t[1]) + 100;
+                InfoModel.Instance.Flight.Lon = Convert.ToDouble(t[1]) + 100;
                 string send2 = "get /position/latitude-deg\r\n";
                 // Console.WriteLine("Sends: " + send);
                 //send the message to the server
@@ -84,7 +84,7 @@ namespace Ex3.Models
                 }
                 string test1 = Client.getInstance().Read();
                 string[] t1 = test1.Split('\'');
-                FlightModel.Instance.Lon = Convert.ToDouble(t1[1]) + 50;
+                InfoModel.Instance.Flight.Lon = Convert.ToDouble(t1[1]) + 50;
 
 
 

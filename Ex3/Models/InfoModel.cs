@@ -23,6 +23,11 @@ namespace Ex3.Models
         }
 
 
+        public FlightModel Flight { get; private set; }
+        public InfoModel()
+        {
+            Flight = new FlightModel();
+        }
 
         public int time { get; set; }
 
@@ -30,16 +35,12 @@ namespace Ex3.Models
         {
             Client.getInstance().Connect(ip, port);
         }
-        public void readServer(int time)
+        public void readServer()
         {
-            if (time == 0)
-            {
-                Client.getInstance().Write();
-
-
-            }
-            else
-            {
+           Client.getInstance().Write();
+        }
+        public void readServerTime()
+        { 
                 Thread t = new Thread(() =>
                 {
                     while (true)
@@ -47,9 +48,7 @@ namespace Ex3.Models
                         Client.getInstance().Write();
                     }
                 }
-                ); t.Start();
-
-            }
+                ); t.Start(); 
         }
     }
 }
