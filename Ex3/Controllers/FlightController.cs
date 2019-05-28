@@ -17,11 +17,11 @@ namespace Ex3.Controllers
         [HttpGet]
         public ActionResult display(string ip, int port, int time)
         {
-         //   InfoModel.Instance.startServer(ip, port);
-         //   InfoModel.Instance.readServer(time);
-         //   InfoModel.Instance.time = time;
-         //   ViewBag.Lat = FlightModel.Instance.Lat;
-         //   ViewBag.Lon = FlightModel.Instance.Lon;
+            InfoModel.Instance.startServer(ip, port);
+            InfoModel.Instance.readServer(time);
+            InfoModel.Instance.time = time;
+            ViewBag.Lat = FlightModel.Instance.Lat;
+            ViewBag.Lon = FlightModel.Instance.Lon;
 
              Session["Lat"] = 200;
             Session["Lon"] = 200;
