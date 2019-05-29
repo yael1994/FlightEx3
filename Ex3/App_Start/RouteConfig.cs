@@ -14,10 +14,14 @@ namespace Ex3
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
 
-            routes.MapRoute("display", "display/{ip}/{port}/{time}",
-           defaults: new { controller = "Flight", action = "display", time = "0" }
+            routes.MapRoute("display", "display/{ip}/{port}",
+           defaults: new { controller = "Flight", action = "display" }
+           );
+            routes.MapRoute("displayTime", "display/{ip}/{port}/{time}",
+           defaults: new { controller = "Flight", action = "displayTime"}
            );
 
             routes.MapRoute("save", "save/{ip}/{port}/{time}/{during}/{fileName}",
