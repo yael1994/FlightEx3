@@ -16,25 +16,27 @@ namespace Ex3.Controllers
         {
             return View();
         }
+      
         [HttpGet]
         public ActionResult display(string ip, int port)
         {
-            InfoModel.Instance.startServer(ip, port);
-            InfoModel.Instance.readServer();
-           
-            Session["Lat"] = InfoModel.Instance.Flight.Lat;
-            Session["Lon"] = InfoModel.Instance.Flight.Lon;
+            Client.getInstance().Connect(ip, port);
+            Client.getInstance().Write("get /position/longitude-deg\r\n");
+            Client.getInstance().Write("get /position/latitude-deg\r\n");
+            Session["Lat"] = InfoModel.Instance.Lat;
+            Session["Lon"] = InfoModel.Instance.Lon;
+
             return View();
         }
         [HttpGet]
         public ActionResult displayTime(string ip, int port, int time)
         {
-            InfoModel.Instance.startServer(ip, port);
-            InfoModel.Instance.readServerTime();
+            Client.getInstance().Connect(ip, port);
             InfoModel.Instance.time = time;
-
-            Session["Lat"] = InfoModel.Instance.Flight.Lat;
-            Session["Lon"] = InfoModel.Instance.Flight.Lon;
+            Client.getInstance().Write("get /position/longitude-deg\r\n");
+            Client.getInstance().Write("get /position/latitude-deg\r\n");
+            Session["Lat"] = InfoModel.Instance.Lat;
+            Session["Lon"] = InfoModel.Instance.Lon;
             Session["time"] = time;
 
             return View();
@@ -43,23 +45,13 @@ namespace Ex3.Controllers
         [HttpPost]
         public String GetFlightData()
         {
-
-            var flight = InfoModel.Instance.Flight;
-            String latS =
-            ViewBag.Lat = "";
-            ViewBag.Lon = "";
-        //    flight.Lat=
-        //    flight.Lon=
+            Client.getInstance().Write("get /position/longitude-deg\r\n");
+            Client.getInstance().Write("get /position/latitude-deg\r\n");
+            var flight = InfoModel.Instance;
             return ToXml(flight);
 
         }
-        private string FromXml(FlightModel flight)
-        {
-
-        }
-
-
-        private string ToXml(FlightModel flight)
+        private string ToXml(InfoModel flight)
         {
              //Initiate XML stuff
              StringBuilder sb = new StringBuilder();
@@ -70,10 +62,10 @@ namespace Ex3.Controllers
             writer.WriteStartElement("Flight");
             flight.ToXml(writer);
 
-            writer.WriteEndElement();
-            writer.WriteEndDocument();
-            writer.Flush();
-            return sb.ToString();
+                writer.WriteEndElement();
+                writer.WriteEndDocument();
+                writer.Flush();
+                return sb.ToString();
          }
         }
     }

@@ -8,14 +8,49 @@ namespace Ex3.Models
 {
     public class FlightModel
     {
-        public double Lat { get; set; }
-        public double Lon { get; set; }
+        private double lastLat = 0;
+        private double lastLon = 0;
+        private double lat, lon;
+        public double Lat {
+            get
+            {
+                return lat;
+            }
+            set
+            {
+                lastLat = lat;
+                if (lat - value < 1)
+                {
+                    value = value + 5;
+                }
+                lat = value;
+            }
+        }
+        public double Lon
+        {
+            get
+            {
+                return lon;
+            }
+            set
+            {
+                lastLon = lon;
+                if(lon - value  < 1)
+                {
+                    value = value + 5;
+                }
+                lon = value;
+            }
+        }
         public double Hight { get; set; }
         public double Direction { get; set; }
         public double Speed { get; set; }
 
         public void ToXml(XmlWriter writer)
         {
+
+            writer.WriteElementString("lastLat", this.lastLat.ToString());
+            writer.WriteElementString("lastLon", this.lastLon.ToString());
             writer.WriteStartElement("Flight");
             writer.WriteElementString("Lat", this.Lat.ToString());
             writer.WriteElementString("Lon", this.Lon.ToString());

@@ -2,53 +2,54 @@
 @{
     ViewBag.Title = "displayTime";
 }
-
-<img id="map" src="~/Image/export-map-share.png" style="height:100%;width:100%;border-width:0px;" />
-<canvas id="myCanvas" width="900" height="900" />
-<link href="~/Content/styles.css" rel="stylesheet" type="text/css" />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<body>
-    <script>
-        var img = document.getElementById("map");
-        var cnvs = document.getElementById("myCanvas");
-        var Lat = @Session["Lat"]+180;
-        var Lon =@Session["Lon"]+90;
-        cnvs.style.position = "absolute";
-        cnvs.style.left = img.offsetLeft + "px";
-        cnvs.style.top = img.offsetTop + "px";
-        var ctx = cnvs.getContext("2d");
+<canvas id='myCanvas' style='position:absolute; left:0px; top:0px;'/>
+    <link href="~/Content/Style1.css" rel="stylesheet" type="text/css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <body>
+        <script>
+        var cnvs = document.getElementById('myCanvas');
+       cnvs.width = window.innerWidth;
+        cnvs.height = window.innerHeight;
+           
+        var Lat =@Session["Lat"];
+        var Lon = @Session["Lon"];
+        var ctx = cnvs.getContext('2d');
+        ctx.strokeStyle = 'black';
+        ctx.lineWidth = '10';
+        ctx.strokeRect(0, 0, cnvs.width, cnvs.height);
         ctx.beginPath();
-        ctx.arc(Lat ,Lon, 4, 0, 2 * Math.PI);
+        ctx.arc(Lat ,Lon, 20,0, 2 * Math.PI);
         ctx.strokeStyle = "blue";
         ctx.fillStyle = 'red';
         ctx.fill();
         ctx.stroke();
+        var IntervalTime = @Session["time"] * 1000;
 
-
-        var IntervalTime = @Session["time"] * 1000
         myTimer = (function () {
-            $.post("@Url.Action("GetFlightData")").done(function (xml) {
-                var lastLat = Lat;
-                var lastLon = Lon;
-                var xmlDoc = $.parseXML(xml),
-                $xml = $(xmlDoc),
-                Lat = $xml.find("Lat").text();
-                Lon = $xml.find("Lon").text();
-                $("#prodLat").text(Lat);
-                $("#prodLon").text(Lon);
-                
-                ctx.strokeStyle = "red";
-                ctx.moveTo(lastLat, lastLon);
-                ctx.lineTo( Lat , Lon);
-                ctx.stroke();
-                lastLat = Lat;
-                lastLon = Lon;
-            });
+        $.post("@Url.Action("GetFlightData")").done(function (xml) {
+        var lastLon;
+        var lastLat;
+        var xmlDoc = $.parseXML(xml),
+        $xml = $(xmlDoc),
+        lastLat = $xml.find("lastLat").text();
+        lastLon = $xml.find("lastLon").text();
+        Lat = $xml.find("Lat").text();
+        Lon = $xml.find("Lon").text();
+        $("#prodLat").text(Lat);
+        $("#prodLon").text(Lon);
+        ctx.lineWidth = 10;
+        ctx.strokeStyle = "red";
+            ctx.moveTo(lastLat, lastLon);
+            ctx.quadraticCurveTo(lastLat+5, lastLon+ 30, Lat, Lon);
+        ctx.stroke();
+        lastLat = Lat;
+        lastLon = Lon;
+        });
         });
 
         setInterval(myTimer, IntervalTime);
         myTimer();
 
-    </script>
-</body>
+        </script>
+    </body>
 
