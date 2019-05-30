@@ -83,11 +83,11 @@ namespace Ex3.Models
            double num1 = Convert.ToDouble(num[1])%100;
            
             if (msg.Contains("latitude")){
-                InfoModel.Instance.Lat = (Convert.ToDouble(t[1]) +num1 +90) * (800 / 180);
+                InfoModel.Instance.Lat = Convert.ToDouble(t[1]) +num1;
             }
             if (msg.Contains("longitude"))
             {
-                InfoModel.Instance.Lon = (Convert.ToDouble(t[1]) + num1 + 180) * (800 /360);
+                InfoModel.Instance.Lon = Convert.ToDouble(t[1]) + num1;
             }
             
             }

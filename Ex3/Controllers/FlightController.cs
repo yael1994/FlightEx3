@@ -16,13 +16,16 @@ namespace Ex3.Controllers
         {
             return View();
         }
+
       
         [HttpGet]
         public ActionResult display(string ip, int port)
         {
-            Client.getInstance().Connect(ip, port);
-            Client.getInstance().Write("get /position/longitude-deg\r\n");
-            Client.getInstance().Write("get /position/latitude-deg\r\n");
+            //Client.getInstance().Connect(ip, port);
+            //Client.getInstance().Write("get /position/longitude-deg\r\n");
+            //Client.getInstance().Write("get /position/latitude-deg\r\n");
+            InfoModel.Instance.Lat = 30;
+            InfoModel.Instance.Lon = 30;
             Session["Lat"] = InfoModel.Instance.Lat;
             Session["Lon"] = InfoModel.Instance.Lon;
 
