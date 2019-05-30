@@ -45,11 +45,20 @@ namespace Ex3.Controllers
         {
 
             var flight = InfoModel.Instance.Flight;
+            String latS =
+            ViewBag.Lat = "";
+            ViewBag.Lon = "";
         //    flight.Lat=
         //    flight.Lon=
             return ToXml(flight);
 
         }
+        private string FromXml(FlightModel flight)
+        {
+
+        }
+
+
         private string ToXml(FlightModel flight)
         {
              //Initiate XML stuff
@@ -61,10 +70,10 @@ namespace Ex3.Controllers
             writer.WriteStartElement("Flight");
             flight.ToXml(writer);
 
-                writer.WriteEndElement();
-                writer.WriteEndDocument();
-                writer.Flush();
-                return sb.ToString();
+            writer.WriteEndElement();
+            writer.WriteEndDocument();
+            writer.Flush();
+            return sb.ToString();
          }
         }
     }
