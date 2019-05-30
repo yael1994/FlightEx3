@@ -1,47 +1,51 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "display";
 }
-<img id="map" src="~/Image/export-map-share.png" style="height:100%;width:100%;border-width:0px;" />
-<canvas id="myCanvas" width="900" height="900" />
-
+<canvas id='myCanvas' style='position:absolute; left:0px; top:0px;' />
+<link href="~/Content/Style1.css" rel="stylesheet" type="text/css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <body>
-    <script>
+   <script>
+ 
+       var cnvs = document.getElementById('myCanvas');
+       cnvs.width = window.innerWidth;
+       cnvs.height = window.innerHeight;
+           
+        var Lat =@Session["Lat"];
+        var Lon = @Session["Lon"];
+            var ctx = cnvs.getContext('2d');
+             initialize();
 
-        var width = 180;
-        var height = 90;
-        document.getElementById("myCanvas").style.height = "100vh";
-        document.getElementById("myCanvas").style.width = "100vw";
-        היו
-        var img = document.getElementById("map");
-        var cnvs = document.getElementById("myCanvas");
+       function initialize() {
+           // Register an event listener to call the resizeCanvas() function 
+           // each time the window is resized.
+           window.addEventListener('resize', resizeCanvas, false);
+           // Draw canvas border for the first time.
+           resizeCanvas();
+        }
 
-        cnvs.style.position = "absolute";
-        cnvs.style.left = img.offsetLeft + "px";
-        cnvs.style.top = img.offsetTop + "px";
-        var ctx = cnvs.getContext("2d");
-        ctx.beginPath();
-        ctx.arc( '@ViewBag.Lat' ,'@ViewBag.Lon', 4, 0, 2 * Math.PI);
-        ctx.strokeStyle = "blue";
-        ctx.fillStyle = 'red';
-        ctx.fill();
-        ctx.stroke();
-    </script>
-    <script>
-        var IntervalTime = @Session["time"] * 1000
+        // Display custom canvas. In this case it's a blue, 5 pixel 
+        // border that resizes along with the browser window.
+        function redraw() {
+         
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = '10';
+            ctx.strokeRect(0, 0, cnvs.width, cnvs.height);
+            ctx.beginPath();
+            ctx.arc(Lat, Lon, 20, 0, 2 * Math.PI);
+            ctx.strokeStyle = "blue";
+            ctx.fillStyle = 'red';
+            ctx.fill();
+            ctx.stroke();
+        }
 
-        myTimer = (function () {
-            $.post("@Url.Action("GetFlightData")").done(function (x) {
-                ctx.strokeStyle = "red";
-                ctx.moveTo(x, x);
-                ctx.lineTo( @Session["Lat"] , @Session["Lon"]);
-                ctx.stroke();
-            });
-        });
-
-        setInterval(myTimer, IntervalTime);
-        myTimer();
-
-    </script>
+        // Runs each time the DOM window resize event fires.
+        // Resets the canvas dimensions to match window,
+        // then draws the new borders accordingly.
+       function resizeCanvas() {
+           cnvs.width = window.innerWidth;
+           cnvs.height = window.innerHeight;
+            redraw();
+        }
+   </script>
 </body>

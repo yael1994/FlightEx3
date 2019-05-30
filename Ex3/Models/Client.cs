@@ -14,6 +14,7 @@ namespace Ex3.Models
             private static Client instance = null;
             private NetworkStream stream;
             private BinaryWriter writer;
+            private bool isConnected;
             private Client() { }
 
             public static Client getInstance()
@@ -22,13 +23,16 @@ namespace Ex3.Models
                 if (instance == null)
                 {
                     instance = new Client();
-                }
+                  
+            }
                 return instance;
             }
 
             public void Connect(string ip, int port)
             {
-
+            
+            if (!isConnected)
+            {
                 tcpClient = new TcpClient();
                 Task task = new Task(() =>
                 {
@@ -38,7 +42,7 @@ namespace Ex3.Models
                         {
                             //  Console.WriteLine("trying to connect..");
                             tcpClient.Connect(ip, port);
-
+                            isConnected = true;
                         }
                         catch (SocketException)
                         {
@@ -52,7 +56,7 @@ namespace Ex3.Models
                 });
                 task.Start();
                 task.Wait();
-
+            }
 
 
             }
@@ -63,31 +67,29 @@ namespace Ex3.Models
             }
 
 
-            public void Write()
+            public void Write(string msg)
             {
 
-                string send = "get /position/longitude-deg\r\n";
+
+            Random r = new Random();
                 if (tcpClient != null && tcpClient.Connected)
                 {
-                    writer.Write(System.Text.Encoding.ASCII.GetBytes(send));
+                    writer.Write(System.Text.Encoding.ASCII.GetBytes(msg));
                 }
-                string test = Client.getInstance().Read();
-                string[] t = test.Split('\'');
-                InfoModel.Instance.Flight.Lon = Convert.ToDouble(t[1]) + 100;
-                string send2 = "get /position/latitude-deg\r\n";
-                // Console.WriteLine("Sends: " + send);
-                //send the message to the server
-                if (tcpClient != null && tcpClient.Connected)
-                {
-                    writer.Write(System.Text.Encoding.ASCII.GetBytes(send2));
+               string test = Client.getInstance().Read();
+               string[] t = test.Split('\'');
+               string[] num = t[1].Split('.');
 
-                }
-                string test1 = Client.getInstance().Read();
-                string[] t1 = test1.Split('\'');
-                InfoModel.Instance.Flight.Lon = Convert.ToDouble(t1[1]) + 50;
-
-
-
+           double num1 = Convert.ToDouble(num[1])%100;
+           
+            if (msg.Contains("latitude")){
+                InfoModel.Instance.Lat = (Convert.ToDouble(t[1]) +num1 +90) * (800 / 180);
+            }
+            if (msg.Contains("longitude"))
+            {
+                InfoModel.Instance.Lon = (Convert.ToDouble(t[1]) + num1 + 180) * (800 /360);
+            }
+            
             }
             public string Read()
             {
