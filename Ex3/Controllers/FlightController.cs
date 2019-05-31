@@ -42,12 +42,9 @@ namespace Ex3.Controllers
             InfoModel.Instance.Direction = Client.getInstance().Write("get /instrumentation/altimeter/indicated-altitude-ft\r\n");
             var flight = InfoModel.Instance;
             string s = ToXml(flight);
-            if(InfoModel.Instance.ToWrite != null)
-            {
-                s = s.Remove(0, s.IndexOf('>') +1);
-            }
+            s += '\n';
             InfoModel.Instance.ToWrite += s;
-            //InfoModel.Instance.AppendXML(s);
+           
             return s;
 
         }

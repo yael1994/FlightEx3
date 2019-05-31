@@ -66,41 +66,15 @@ namespace Ex3.Models
         public void AppendXML(string s)
         {
             string createText = s + Environment.NewLine;
-            File.WriteAllText(@"C:\Users\Danielle\source\repos\FlightEx3\" + FileName, createText);
-            //XmlDocument doc = new XmlDocument();
-            //doc.LoadXml(s);
-            //string name = @"C:\Users\Danielle\source\repos\FlightEx3\" + FileName;
-            //doc.Save(name);
+            File.WriteAllText(@"C:\Users\Danielle\source\repos\FlightEx3\" + FileName + ".txt", createText);
+         
 
         }
 
         public void ToXml(XmlWriter writer)
         {
            
-            //XmlElement newElem;
-            //newElem = doc.CreateElement("lastLat");
-            //newElem.InnerText = lastLat.ToString();
-            //doc.DocumentElement.AppendChild(newElem);
-            ////save to file
-            //newElem = doc.CreateElement("lastLat");
-            //newElem.InnerText = lastLat.ToString();
-            //doc.DocumentElement.AppendChild(newElem);
-            //newElem = doc.CreateElement("lastLon");
-            //newElem.InnerText = lastLon.ToString();
-            //doc.DocumentElement.AppendChild(newElem);
-            //newElem = doc.CreateElement("Lat");
-            //newElem.InnerText = Lat.ToString();
-            //doc.DocumentElement.AppendChild(newElem);
-            //newElem = doc.CreateElement("Lon");
-            //newElem.InnerText = Lon.ToString();
-            //doc.DocumentElement.AppendChild(newElem);
-            //newElem = doc.CreateElement("Height");
-            //newElem.InnerText = Hight.ToString();
-            //doc.DocumentElement.AppendChild(newElem);
-            //newElem = doc.CreateElement("Direction");
-            //newElem.InnerText = Direction.ToString();
-            //doc.DocumentElement.AppendChild(newElem);
-            //doc.Save(FileName);
+         
             writer.WriteElementString("lastLat", this.lastLat.ToString());
             writer.WriteElementString("lastLon", this.lastLon.ToString());
             writer.WriteElementString("Lat", this.Lat.ToString());

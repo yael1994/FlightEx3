@@ -55,11 +55,12 @@
 
         outTimer = (function () {
             clearInterval(myTimer);
-             $.post("@Url.Action("SaveToXML")").done();
+            $.post("@Url.Action("SaveToXML")").done();
+            alert("Time is over");
         });
         setTimeout(outTimer, during);
   
-        outTimer();
+        
 
        
 

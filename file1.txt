@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-16"?><Flight><lastLat>105.00557773</lastLat><lastLon>85.89205451</lastLon><Lat>110.00589978</Lat><Lon>77.8923343</Lon><Height>0</Height><Direction>5258.871037</Direction><Speed>156.43803487</Speed></Flight>
+<?xml version="1.0" encoding="utf-16"?><Flight><lastLat>110.00589978</lastLat><lastLon>77.8923343</lastLon><Lat>34.00667602</Lat><Lon>38.89297904</Lon><Height>0</Height><Direction>5310.728546</Direction><Speed>49.1520912</Speed></Flight>
+<?xml version="1.0" encoding="utf-16"?><Flight><lastLat>34.00667602</lastLat><lastLon>38.89297904</lastLon><Lat>111.00737279</Lat><Lon>116.89349882</Lon><Height>0</Height><Direction>5137.604189</Direction><Speed>70.01812414</Speed></Flight>
+
