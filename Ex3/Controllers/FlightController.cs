@@ -17,13 +17,54 @@ namespace Ex3.Controllers
             return View();
         }
 
-      
+        public ActionResult save(string ip, int port, int time,int during, string fileName)
+        {
+            Client.getInstance().Connect(ip, port);
+            InfoModel.Instance.time = time;
+            InfoModel.Instance.FileName = fileName;
+            InfoModel.Instance.Lon= Client.getInstance().Write("get /position/longitude-deg\r\n");
+            InfoModel.Instance.Lat = Client.getInstance().Write("get /position/latitude-deg\r\n");
+            InfoModel.Instance.Speed= Client.getInstance().Write("get /instrumentation/airspeed-indicator/indicated-speed-kt\r\n");
+            InfoModel.Instance.Direction = Client.getInstance().Write("get /instrumentation/altimeter/indicated-altitude-ft\r\n");
+            Session["Lat"] = InfoModel.Instance.Lat;
+            Session["Lon"] = InfoModel.Instance.Lon;
+            Session["time"] = time;
+            Session["during"] = during;
+
+            return View();
+        }
+        [HttpPost]
+        public string GetFlightDataToFile()
+        {
+            InfoModel.Instance.Lon = Client.getInstance().Write("get /position/longitude-deg\r\n");
+            InfoModel.Instance.Lat = Client.getInstance().Write("get /position/latitude-deg\r\n");
+            InfoModel.Instance.Speed = Client.getInstance().Write("get /instrumentation/airspeed-indicator/indicated-speed-kt\r\n");
+            InfoModel.Instance.Direction = Client.getInstance().Write("get /instrumentation/altimeter/indicated-altitude-ft\r\n");
+            var flight = InfoModel.Instance;
+            string s = ToXml(flight);
+            if(InfoModel.Instance.ToWrite != null)
+            {
+                s = s.Remove(0, s.IndexOf('>') +1);
+            }
+            InfoModel.Instance.ToWrite += s;
+            //InfoModel.Instance.AppendXML(s);
+            return s;
+
+        }
+        [HttpPost]
+        public string SaveToXML()
+        {
+            InfoModel.Instance.AppendXML(InfoModel.Instance.ToWrite);
+            return "saved";
+        }
+
+
         [HttpGet]
         public ActionResult display(string ip, int port)
         {
             //Client.getInstance().Connect(ip, port);
-            //Client.getInstance().Write("get /position/longitude-deg\r\n");
-            //Client.getInstance().Write("get /position/latitude-deg\r\n");
+            //InfoModel.Instance.Lon = Client.getInstance().Write("get /position/longitude-deg\r\n");
+            //InfoModel.Instance.Lat = Client.getInstance().Write("get /position/latitude-deg\r\n");
             InfoModel.Instance.Lat = 30;
             InfoModel.Instance.Lon = 30;
             Session["Lat"] = InfoModel.Instance.Lat;
@@ -36,8 +77,8 @@ namespace Ex3.Controllers
         {
             Client.getInstance().Connect(ip, port);
             InfoModel.Instance.time = time;
-            Client.getInstance().Write("get /position/longitude-deg\r\n");
-            Client.getInstance().Write("get /position/latitude-deg\r\n");
+            InfoModel.Instance.Lon = Client.getInstance().Write("get /position/longitude-deg\r\n");
+            InfoModel.Instance.Lat = Client.getInstance().Write("get /position/latitude-deg\r\n");
             Session["Lat"] = InfoModel.Instance.Lat;
             Session["Lon"] = InfoModel.Instance.Lon;
             Session["time"] = time;
@@ -46,18 +87,19 @@ namespace Ex3.Controllers
         }
 
         [HttpPost]
-        public String GetFlightData()
+        public string GetFlightData()
         {
-            Client.getInstance().Write("get /position/longitude-deg\r\n");
-            Client.getInstance().Write("get /position/latitude-deg\r\n");
+           InfoModel.Instance.Lon = Client.getInstance().Write("get /position/longitude-deg\r\n");
+            InfoModel.Instance.Lat = Client.getInstance().Write("get /position/latitude-deg\r\n");
             var flight = InfoModel.Instance;
             return ToXml(flight);
 
         }
         private string ToXml(InfoModel flight)
         {
-             //Initiate XML stuff
-             StringBuilder sb = new StringBuilder();
+            //Initiate XML stuff
+            XmlDocument doc = new XmlDocument();
+            StringBuilder sb = new StringBuilder();
              XmlWriterSettings settings = new XmlWriterSettings();
              XmlWriter writer = XmlWriter.Create(sb, settings);
 
@@ -68,7 +110,11 @@ namespace Ex3.Controllers
                 writer.WriteEndElement();
                 writer.WriteEndDocument();
                 writer.Flush();
+                settings.Indent = true;
+
                 return sb.ToString();
          }
+
+    
         }
     }

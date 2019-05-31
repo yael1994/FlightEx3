@@ -67,7 +67,7 @@ namespace Ex3.Models
             }
 
 
-            public void Write(string msg)
+            public double Write(string msg)
             {
 
 
@@ -81,15 +81,10 @@ namespace Ex3.Models
                string[] num = t[1].Split('.');
 
            double num1 = Convert.ToDouble(num[1])%100;
-           
-            if (msg.Contains("latitude")){
-                InfoModel.Instance.Lat = Convert.ToDouble(t[1]) +num1;
-            }
-            if (msg.Contains("longitude"))
-            {
-                InfoModel.Instance.Lon = Convert.ToDouble(t[1]) + num1;
-            }
-            
+
+
+            return Convert.ToDouble(t[1]) + num1;
+     
             }
             public string Read()
             {
