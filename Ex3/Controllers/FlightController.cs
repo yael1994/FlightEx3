@@ -84,7 +84,8 @@ namespace Ex3.Controllers
         [HttpGet]
         public ActionResult upload(string fileName, int time)
         {
-            string path = @"C:\Users\Danielle\source\repos\FlightEx3\Ex3\";
+            String path=@"C:\Users\yael4\source\repos\Ex3\Ex3\";
+            //string path = @"C:\Users\Danielle\source\repos\FlightEx3\Ex3\";
             var logFile = System.IO.File.ReadAllLines(path + fileName);
             InfoModel.Instance.ReadFile = new List<string>(logFile);
             InfoModel.Instance.Index = 0;
