@@ -31,10 +31,10 @@
         Lon = $xml.find("Lon").text();
         $("#prodLat").text(Lat);
         $("#prodLon").text(Lon);
-        ctx.lineWidth = 10;
+            ctx.lineWidth = '3';
         ctx.strokeStyle = "red";
             ctx.moveTo(lastLat, lastLon);
-            ctx.quadraticCurveTo(lastLat+5, lastLon+ 30, Lat, Lon);
+            ctx.lineTo(Lat, Lon);
         ctx.stroke();
         lastLat = Lat;
         lastLon = Lon;
