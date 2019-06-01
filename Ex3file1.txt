@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="utf-16"?><Flight><lastLat>120.01381888</lastLat><lastLon>116.89308182</lastLon><Lat>53.01564021</Lat><Lon>101.89172167</Lon><Height>0</Height><Direction>2046.807924</Direction><Speed>89.43639408</Speed></Flight>
+<?xml version="1.0" encoding="utf-16"?><Flight><lastLat>53.01564021</lastLat><lastLon>101.89172167</lastLon><Lat>107.01531275</Lat><Lon>79.89004245</Lon><Height>0</Height><Direction>2036.424567</Direction><Speed>168.17088987</Speed></Flight>
+

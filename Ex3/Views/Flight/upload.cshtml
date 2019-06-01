@@ -1,7 +1,8 @@
 ﻿
 @{
-    ViewBag.Title = "save";
+    ViewBag.Title = "upload";
 }
+
 <canvas id='myCanvas' style='position:absolute; left:0px; top:0px;' />
 <link href="~/Content/Style1.css" rel="stylesheet" type="text/css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -10,28 +11,18 @@
         var cnvs = document.getElementById('myCanvas');
        cnvs.width = window.innerWidth;
         cnvs.height = window.innerHeight;
-
-        var Lat =@Session["Lat"];
-        var Lon = @Session["Lon"];
         var ctx = cnvs.getContext('2d');
-        ctx.strokeStyle = 'black';
-        ctx.lineWidth = '10';
-        ctx.strokeRect(0, 0, cnvs.width, cnvs.height);
-        ctx.beginPath();
-        ctx.arc(Lat ,Lon, 5,0, 2 * Math.PI);
-        ctx.strokeStyle = "blue";
-        ctx.fillStyle = 'red';
-        ctx.fill();
-        ctx.stroke();
-        var during = @Session["during"] * 1000;
-      
-
         var IntervalTime = @Session["time"] * 1000;
-        
+
         myTimer = (function () {
-        $.post("@Url.Action("GetFlightDataToFile")").done(function (xml) {
+        $.post("@Url.Action("GetLine")").done(function (xml) {
         var lastLon;
-        var lastLat;
+            var lastLat;
+            if (xml == "END") {
+                clearInterval(interval);
+                alert("End of Animation");
+             
+            }
         var xmlDoc = $.parseXML(xml),
         $xml = $(xmlDoc),
         lastLat = $xml.find("lastLat").text();
@@ -50,21 +41,11 @@
         });
         });
 
-        var interval =setInterval(myTimer, IntervalTime);
-      
-
-        outTimer = (function () {
-            clearInterval(interval);
-            $.post("@Url.Action("SaveToXML")").done();
-            alert("Time is over");
-        });
-        setTimeout(outTimer, during);
-  
-        
-
-       
+        var interval = setInterval(myTimer, IntervalTime);
+    
 
     </script>
 </body>
+
 
 

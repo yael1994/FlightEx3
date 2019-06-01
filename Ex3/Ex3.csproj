@@ -129,6 +129,7 @@
     <Content Include="Views\Flight\displayTime.cshtml" />
     <Content Include="Views\Flight\Index.cshtml" />
     <Content Include="Views\Flight\save.cshtml" />
+    <Content Include="Views\Flight\upload.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

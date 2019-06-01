@@ -60,13 +60,16 @@ namespace Ex3.Models
         public double Speed { get; set; }
         public string FileName { get; set; }
         public string ToWrite { get; set; }
+        public List<string> ReadFile { get; set; }
+        public int Index { get; set; }
       
 
         
         public void AppendXML(string s)
         {
             string createText = s + Environment.NewLine;
-            File.WriteAllText(@"C:\Users\Danielle\source\repos\FlightEx3\" + FileName + ".txt", createText);
+            string path = @"C:\Users\Danielle\source\repos\FlightEx3\Ex3\";
+            File.WriteAllText(  path+FileName , createText);
          
 
         }

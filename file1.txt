@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-16"?><Flight><lastLat>105.00557773</lastLat><lastLon>85.89205451</lastLon><Lat>110.00589978</Lat><Lon>77.8923343</Lon><Height>0</Height><Direction>5258.871037</Direction><Speed>156.43803487</Speed></Flight>
-<?xml version="1.0" encoding="utf-16"?><Flight><lastLat>110.00589978</lastLat><lastLon>77.8923343</lastLon><Lat>34.00667602</Lat><Lon>38.89297904</Lon><Height>0</Height><Direction>5310.728546</Direction><Speed>49.1520912</Speed></Flight>
-<?xml version="1.0" encoding="utf-16"?><Flight><lastLat>34.00667602</lastLat><lastLon>38.89297904</lastLon><Lat>111.00737279</Lat><Lon>116.89349882</Lon><Height>0</Height><Direction>5137.604189</Direction><Speed>70.01812414</Speed></Flight>
+<?xml version="1.0" encoding="utf-16"?><Flight><lastLat>64.00545432</lastLat><lastLon>132.8914998</lastLon><Lat>45.005913</Lat><Lon>100.8923466</Lon><Height>0</Height><Direction>5315.600886</Direction><Speed>107.5577739</Speed></Flight>
+<?xml version="1.0" encoding="utf-16"?><Flight><lastLat>45.005913</lastLat><lastLon>100.8923466</lastLon><Lat>47.00669715</Lat><Lon>80.89300546</Lon><Height>0</Height><Direction>5274.259614</Direction><Speed>134.61350098</Speed></Flight>
+<?xml version="1.0" encoding="utf-16"?><Flight><lastLat>47.00669715</lastLat><lastLon>80.89300546</lastLon><Lat>95.00736963</Lat><Lon>60.89351926</Lon><Height>0</Height><Direction>5062.789327</Direction><Speed>76.376019</Speed></Flight>
 
