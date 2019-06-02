@@ -84,8 +84,10 @@ namespace Ex3.Controllers
         [HttpGet]
         public ActionResult upload(string fileName, int time)
         {
-            String path=@"C:\Users\yael4\source\repos\Ex3\Ex3\";
+          
+           // String path =@"C:\Users\yael4\source\repos\Ex3\Ex3\";
             //string path = @"C:\Users\Danielle\source\repos\FlightEx3\Ex3\";
+            String path = @"/App_Data/";
             var logFile = System.IO.File.ReadAllLines(path + fileName);
             InfoModel.Instance.ReadFile = new List<string>(logFile);
             InfoModel.Instance.Index = 0;
@@ -102,14 +104,12 @@ namespace Ex3.Controllers
             {
               return upload(ip,port);
             }
-           // Client.getInstance().Connect(ip, port);
-        //    updateValues();
+            Client.getInstance().Connect(ip, port);
+            updateValues();
             InfoModel.Instance.Lat = 30;
             InfoModel.Instance.Lon = 30;
-            //   Session["Lat"] = InfoModel.Instance.Lat;
-            //   Session["Lon"] = InfoModel.Instance.Lon;
-            Session["Lat"] = 200;
-            Session["Lon"] = 200;
+            Session["Lat"] = InfoModel.Instance.Lat;
+            Session["Lon"] = InfoModel.Instance.Lon;
             return View();
         }
         [HttpGet]

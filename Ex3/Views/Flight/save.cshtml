@@ -14,17 +14,8 @@
         var Lat =@Session["Lat"];
         var Lon = @Session["Lon"];
         var ctx = cnvs.getContext('2d');
-        ctx.strokeStyle = 'black';
-        ctx.lineWidth = '10';
-        ctx.strokeRect(0, 0, cnvs.width, cnvs.height);
-        ctx.beginPath();
-        ctx.arc(Lat ,Lon, 5,0, 2 * Math.PI);
-        ctx.strokeStyle = "blue";
-        ctx.fillStyle = 'red';
-        ctx.fill();
-        ctx.stroke();
+        createPoint(ctx, Lat, Lon);
         var during = @Session["during"] * 1000;
-      
 
         var IntervalTime = @Session["time"] * 1000;
         

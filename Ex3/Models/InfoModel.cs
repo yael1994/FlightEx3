@@ -68,8 +68,18 @@ namespace Ex3.Models
         public void AppendXML(string s)
         {
             string createText = s + Environment.NewLine;
-            string path = @"C:\Users\Danielle\source\repos\FlightEx3\Ex3\";
-            File.WriteAllText(  path+FileName , createText);
+            string path;
+            try
+           {
+                path=System.IO.File.Create(@"/App_Data/"+FileName).ToString();
+                File.WriteAllText(path, createText);
+            }
+            catch(Exception Ex)
+            {
+                Console.WriteLine("can't write to file");
+            }
+           // string path = @"C:\Users\Danielle\source\repos\FlightEx3\Ex3\";
+          //  File.WriteAllText(  path, createText);
          
 
         }
