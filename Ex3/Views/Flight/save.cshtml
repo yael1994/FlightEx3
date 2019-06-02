@@ -29,24 +29,8 @@
         var IntervalTime = @Session["time"] * 1000;
         
         myTimer = (function () {
-        $.post("@Url.Action("GetFlightDataToFile")").done(function (xml) {
-        var lastLon;
-        var lastLat;
-        var xmlDoc = $.parseXML(xml),
-        $xml = $(xmlDoc),
-        lastLat = $xml.find("lastLat").text();
-        lastLon = $xml.find("lastLon").text();
-        Lat = $xml.find("Lat").text();
-        Lon = $xml.find("Lon").text();
-        $("#prodLat").text(Lat);
-        $("#prodLon").text(Lon);
-        ctx.lineWidth = '5';
-        ctx.strokeStyle = "red";
-            ctx.moveTo(lastLat, lastLon);
-            ctx.quadraticCurveTo(lastLat+5, lastLon+ 30, Lat, Lon);
-        ctx.stroke();
-        lastLat = Lat;
-        lastLon = Lon;
+            $.post("@Url.Action("GetFlightDataToFile")").done(function (xml) {
+                createLine(ctx, Lat, Lon, xml);
         });
         });
 

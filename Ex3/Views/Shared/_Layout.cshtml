@@ -9,7 +9,39 @@
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
 </head>
 <body>
-  
+    <script>
+          function createPoint(ctx,Lat,Lon) {
+              ctx.strokeStyle = 'black';
+              ctx.lineWidth = '4';
+              ctx.strokeRect(0, 0, cnvs.width, cnvs.height);
+              ctx.beginPath();
+              ctx.arc(Lat, Lon, 6, 0, 2 * Math.PI);
+              ctx.strokeStyle = "blue";
+              ctx.fillStyle = 'red';
+              ctx.fill();
+              ctx.stroke();
+        }
+        function createLine(ctx, Lat, Lon, xml) {
+            var lastLon;
+            var lastLat;
+            var xmlDoc = $.parseXML(xml),
+            $xml = $(xmlDoc),
+            lastLat = $xml.find("lastLat").text();
+            lastLon = $xml.find("lastLon").text();
+            Lat = $xml.find("Lat").text();
+            Lon = $xml.find("Lon").text();
+            $("#prodLat").text(Lat);
+            $("#prodLon").text(Lon);
+            ctx.lineWidth = '5';
+            ctx.strokeStyle = "red";
+            ctx.moveTo(lastLat, lastLon);
+            ctx.quadraticCurveTo(lastLat + 5, lastLon + 30, Lat, Lon);
+            ctx.stroke();
+            lastLat = Lat;
+            lastLon = Lon;
+        }
+    </script>
+
         @RenderBody()
      
 </body>

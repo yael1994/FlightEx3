@@ -102,13 +102,14 @@ namespace Ex3.Controllers
             {
               return upload(ip,port);
             }
-            Client.getInstance().Connect(ip, port);
-            updateValues();
+           // Client.getInstance().Connect(ip, port);
+        //    updateValues();
             InfoModel.Instance.Lat = 30;
             InfoModel.Instance.Lon = 30;
-            Session["Lat"] = InfoModel.Instance.Lat;
-            Session["Lon"] = InfoModel.Instance.Lon;
-
+            //   Session["Lat"] = InfoModel.Instance.Lat;
+            //   Session["Lon"] = InfoModel.Instance.Lon;
+            Session["Lat"] = 200;
+            Session["Lon"] = 200;
             return View();
         }
         [HttpGet]
@@ -123,7 +124,6 @@ namespace Ex3.Controllers
 
             return View();
         }
-
         [HttpPost]
         public string GetFlightData()
         {

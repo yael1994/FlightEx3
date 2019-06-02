@@ -16,40 +16,20 @@
         var hasCircle = false;
         myTimer = (function () {
         $.post("@Url.Action("GetLine")").done(function (xml) {
-        var lastLon;
-            var lastLat;
             if (xml == "END") {
                 clearInterval(interval);
                 alert("End of Animation");
              
             }
-        var xmlDoc = $.parseXML(xml),
-            $xml = $(xmlDoc),
-            lastLat = $xml.find("lastLat").text();
-            lastLon = $xml.find("lastLon").text();
-            Lat = $xml.find("Lat").text();
-            Lon = $xml.find("Lon").text();
             if (!hasCircle) {
-                ctx.strokeStyle = 'black';
-                ctx.lineWidth = '4';
-                ctx.strokeRect(0, 0, cnvs.width, cnvs.height);
-                ctx.beginPath();
-                ctx.arc(Lat, Lon, 6, 0, 2 * Math.PI);
-                ctx.strokeStyle = "blue";
-                ctx.fillStyle = 'red';
-                ctx.fill();
-                ctx.stroke();
+                var xmlDoc = $.parseXML(xml),
+                    $xml = $(xmlDoc),
+                    Lat = $xml.find("Lat").text();
+                    Lon = $xml.find("Lon").text();
+                    createPoint(ctx, Lat, Lon);
                 hasCircle = true;
             } else {
-                $("#prodLat").text(Lat);
-                $("#prodLon").text(Lon);
-                ctx.lineWidth = '3';
-                ctx.strokeStyle = "red";
-                ctx.moveTo(lastLat, lastLon);
-                ctx.lineTo(Lat, Lon);
-                ctx.stroke();
-                lastLat = Lat;
-                lastLon = Lon;
+                createLine(ctx, Lat, Lon, xml);
             }
         });
         });
