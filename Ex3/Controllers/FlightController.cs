@@ -27,8 +27,8 @@ namespace Ex3.Controllers
         {
             InfoModel.Instance.Lon = Client.getInstance().Write("get /position/longitude-deg\r\n");
             InfoModel.Instance.Lat = Client.getInstance().Write("get /position/latitude-deg\r\n");
-            InfoModel.Instance.Speed = Client.getInstance().Write("get /instrumentation/airspeed-indicator/indicated-speed-kt\r\n");
-            InfoModel.Instance.Direction = Client.getInstance().Write("get /instrumentation/altimeter/indicated-altitude-ft\r\n");
+            InfoModel.Instance.Rudder = Client.getInstance().Write("get /controls/flight/rudder\r\n");
+            InfoModel.Instance.Throttel = Client.getInstance().Write("get /controls/engines/engine/throttle\r\n");
         }
         public ActionResult save(string ip, int port, int time,int during, string fileName)
         {

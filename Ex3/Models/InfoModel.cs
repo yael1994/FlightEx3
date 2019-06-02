@@ -56,8 +56,8 @@ namespace Ex3.Models
             }
         }
         public double Hight { get; set; }
-        public double Direction { get; set; }
-        public double Speed { get; set; }
+        public double Throttel { get; set; }
+        public double Rudder { get; set; }
         public string FileName { get; set; }
         public string ToWrite { get; set; }
         public List<string> ReadFile { get; set; }
@@ -93,8 +93,8 @@ namespace Ex3.Models
             writer.WriteElementString("Lat", this.Lat.ToString());
             writer.WriteElementString("Lon", (this.Lon).ToString());
             writer.WriteElementString("Height", this.Hight.ToString());
-            writer.WriteElementString("Direction", this.Direction.ToString());
-            writer.WriteElementString("Speed", this.Speed.ToString());
+            writer.WriteElementString("Throttel", this.Throttel.ToString());
+            writer.WriteElementString("Rudder", this.Rudder.ToString());
 
          
       
