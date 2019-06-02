@@ -31,7 +31,7 @@
         outTimer = (function () {
             clearInterval(interval);
             $.post("@Url.Action("SaveToXML")").done();
-            alert("Time is over");
+            alert("Time of recording is over");
         });
         setTimeout(outTimer, during);
   

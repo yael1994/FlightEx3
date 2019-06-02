@@ -76,12 +76,14 @@ namespace Ex3.Models
                 {
                     writer.Write(System.Text.Encoding.ASCII.GetBytes(msg));
                 }
-               string test = Client.getInstance().Read();
+               string test = Read();
                string[] t = test.Split('\'');
                string[] num = t[1].Split('.');
-
-           double num1 = Convert.ToDouble(num[1])%100;
-
+            double num1 = 0;
+            if (num.Length > 1)
+            {
+                num1 = Convert.ToDouble(num[1]) % 100;
+            }
 
             return Convert.ToDouble(t[1]) + num1;
      

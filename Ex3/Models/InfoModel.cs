@@ -68,18 +68,13 @@ namespace Ex3.Models
         public void AppendXML(string s)
         {
             string createText = s + Environment.NewLine;
-            string path;
-            try
-           {
-                path=System.IO.File.Create(@"/App_Data/"+FileName).ToString();
-                File.WriteAllText(path, createText);
-            }
-            catch(Exception Ex)
-            {
-                Console.WriteLine("can't write to file");
-            }
-           // string path = @"C:\Users\Danielle\source\repos\FlightEx3\Ex3\";
-          //  File.WriteAllText(  path, createText);
+
+
+           // var roamingDirectory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+          //  var filePath = Path.Combine(roamingDirectory, FileName);
+            String file = System.Web.Hosting.HostingEnvironment.MapPath(@"/App_Data/" + FileName);
+            File.WriteAllText(file, createText);
+
          
 
         }
