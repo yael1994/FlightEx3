@@ -73,7 +73,8 @@ namespace Ex3.Models
            // var roamingDirectory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
           //  var filePath = Path.Combine(roamingDirectory, FileName);
             String file = System.Web.Hosting.HostingEnvironment.MapPath(@"/App_Data/" + FileName);
-            File.WriteAllText(file, createText);
+            string path = HttpContext.Current.Server.MapPath(@"/App_Data/" + FileName);
+            File.WriteAllText(path, createText);
 
          
 

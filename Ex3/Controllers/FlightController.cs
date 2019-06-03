@@ -8,7 +8,6 @@ using System.Web;
 using System.Web.Mvc;
 using System.Xml;
 
-using System.IO;
 
 namespace Ex3.Controllers
 {
@@ -84,7 +83,7 @@ namespace Ex3.Controllers
         [HttpGet]
         public ActionResult upload(string fileName, int time)
         {
-
+           
             string file = System.Web.Hosting.HostingEnvironment.MapPath(@"/App_Data/" + fileName);
             var logFile = System.IO.File.ReadAllLines(file);
             InfoModel.Instance.ReadFile = new List<string>(logFile);

@@ -16,18 +16,18 @@
         var hasCircle = false;
         $.post("@Url.Action("GetLine")").done(function (xml) {
             if (xml == "END") {
-                clearInterval(interval);
+
                 alert("End of Animation");
-             
             }
             if (!hasCircle) {
                 var xmlDoc = $.parseXML(xml),
                     $xml = $(xmlDoc),
                     Lat = $xml.find("Lat").text();
-                    Lon = $xml.find("Lon").text();
-                    createPoint(ctx, Lat, Lon);
+                Lon = $xml.find("Lon").text();
+                createPoint(ctx, Lat, Lon);
                 hasCircle = true;
             }
+        });
 
 
         myTimer = (function () {
@@ -37,14 +37,16 @@
                 alert("End of Animation");
             }
             if (hasCircle) {    
+                var xmlDoc = $.parseXML(xml),
+                    $xml = $(xmlDoc),
+                    Lat = $xml.find("Lat").text();
+                Lon = $xml.find("Lon").text();
                 createLine(ctx, Lat, Lon, xml);
             }
         });
         });
 
         var interval = setInterval(myTimer, IntervalTime);
-    
-
     </script>
 </body>
 
