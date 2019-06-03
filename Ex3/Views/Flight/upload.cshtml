@@ -14,7 +14,6 @@
         var ctx = cnvs.getContext('2d');
         var IntervalTime = @Session["time"] * 1000;
         var hasCircle = false;
-        myTimer = (function () {
         $.post("@Url.Action("GetLine")").done(function (xml) {
             if (xml == "END") {
                 clearInterval(interval);
@@ -28,7 +27,16 @@
                     Lon = $xml.find("Lon").text();
                     createPoint(ctx, Lat, Lon);
                 hasCircle = true;
-            } else {
+            }
+
+
+        myTimer = (function () {
+        $.post("@Url.Action("GetLine")").done(function (xml) {
+            if (xml == "END") {
+                clearInterval(interval);
+                alert("End of Animation");
+            }
+            if (hasCircle) {    
                 createLine(ctx, Lat, Lon, xml);
             }
         });
