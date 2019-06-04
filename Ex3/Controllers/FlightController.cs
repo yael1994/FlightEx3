@@ -47,10 +47,16 @@ namespace Ex3.Controllers
         {
             updateValues();
             var flight = InfoModel.Instance;
+
             string s = ToXml(flight);
+            
             s += '\n';
+            if (InfoModel.Instance.ToWrite == null) {
+                InfoModel.Instance.ToWrite += s;
+        
+            }
             InfoModel.Instance.ToWrite += s;
-           
+
             return s;
 
         }
@@ -72,9 +78,12 @@ namespace Ex3.Controllers
         [HttpPost]
         public string GetLine()
         {
-            if (InfoModel.Instance.Index < InfoModel.Instance.ReadFile.Count) {
+            if (InfoModel.Instance.Index <InfoModel.Instance.ReadFile.Count-1) {
                 string line = InfoModel.Instance.ReadFile[InfoModel.Instance.Index];
-                InfoModel.Instance.Index++;
+            
+
+                    InfoModel.Instance.Index++;
+                
                 return line;
             }
             return "END";
@@ -103,8 +112,6 @@ namespace Ex3.Controllers
             }
             Client.getInstance().Connect(ip, port);
             updateValues();
-            InfoModel.Instance.Lat = 30;
-            InfoModel.Instance.Lon = 30;
             Session["Lat"] = InfoModel.Instance.Lat;
             Session["Lon"] = InfoModel.Instance.Lon;
             return View();

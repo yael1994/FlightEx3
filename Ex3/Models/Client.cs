@@ -82,9 +82,9 @@ namespace Ex3.Models
             double num1 = 0;
             if (num.Length > 1)
             {
-                num1 = Convert.ToDouble(num[1]) % 100;
+               num1 = Convert.ToDouble(num[1]) % 100;
             }
-
+         
             return Convert.ToDouble(t[1]) + num1;
      
             }
